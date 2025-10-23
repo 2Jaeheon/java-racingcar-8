@@ -5,42 +5,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import racingcar.view.InputView;
+import racingcar.view.OutputView;
 
 public class GameConsole {
-
-    private static final String CAR_NAMES_PROMPT = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
-    private static final String ROUND_PROMPT = "시도할 횟수는 몇 회인가요?";
-    private static final String RESULT_MESSAGE = "실행 결과";
-    private static final String WINNER_MESSAGE = "최종 우승자 : ";
     private static final String DELIMITER = ",";
 
     private final MoveStrategy moveStrategy;
+    private final InputView inputView;
+    private final OutputView outputView;
 
     public GameConsole() {
         this.moveStrategy = new RandomStrategy();
-    }
-
-    private String read() {
-        return Console.readLine();
-    }
-
-    private void print(String message) {
-        System.out.println(message);
+        this.inputView = new InputView();
+        this.outputView = new OutputView();
     }
 
     public void play() {
-        print(CAR_NAMES_PROMPT);
-        String carNames = read();
+        String carNames = inputView.readCarNames();
         List<Car> cars = parse(carNames);
 
-        print(ROUND_PROMPT);
         int rounds = getRounds();
 
-        print(RESULT_MESSAGE);
+        outputView.printRaceStart();
         startRace(cars, rounds);
 
         List<String> winners = findWinners(cars);
-        print(WINNER_MESSAGE + String.join(",", winners));
+        outputView.printWinner(winners);
     }
 
     private List<String> findWinners(List<Car> cars) {
@@ -63,15 +54,12 @@ public class GameConsole {
             for (Car car : cars) {
                 car.move(moveStrategy);
             }
-            printRoundResult(cars);
-        }
-    }
 
-    private void printRoundResult(List<Car> cars) {
-        for (Car car : cars) {
-            System.out.println(car.getStatus());
+            List<String> carsStatus = cars.stream()
+                    .map(Car::getStatus)
+                    .toList();
+            outputView.printRound(carsStatus);
         }
-        System.out.println();
     }
 
     private List<Car> parse(String carNames) {
@@ -92,7 +80,7 @@ public class GameConsole {
 
     private int getRounds() {
         try {
-            String roundsInput = read();
+            String roundsInput = inputView.readRound();
             int rounds = Integer.parseInt(roundsInput);
 
             if (rounds < 0) {
