@@ -9,6 +9,7 @@ public class GameConsole {
 
     private static final String CAR_NAMES_PROMPT = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
     private static final String ROUND_PROMPT = "시도할 횟수는 몇 회인가요?";
+    private static final String RESULT_MESSAGE = "실행 결과";
     private static final String DELIMITER = ",";
 
     private final MoveStrategy moveStrategy;
@@ -28,12 +29,12 @@ public class GameConsole {
     public void play() {
         print(CAR_NAMES_PROMPT);
         String carNames = read();
+        List<Car> cars = parse(carNames);
 
         print(ROUND_PROMPT);
         int rounds = getRounds();
 
-        List<Car> cars = parse(carNames);
-
+        print(RESULT_MESSAGE);
         startRace(cars, rounds);
     }
 
@@ -42,7 +43,15 @@ public class GameConsole {
             for (Car car : cars) {
                 car.move(moveStrategy);
             }
+            printRoundResult(cars);
         }
+    }
+
+    private void printRoundResult(List<Car> cars) {
+        for (Car car : cars) {
+            System.out.println(car.getPosition());
+        }
+        System.out.println();
     }
 
     private List<Car> parse(String carNames) {

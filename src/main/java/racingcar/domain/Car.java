@@ -2,6 +2,8 @@ package racingcar.domain;
 
 public class Car {
     private static final int MAX_NAME_LENGTH = 5;
+    private static final String POSITION = "-";
+    private static final String COLON = ":";
 
     private final String name;
     private int position;
@@ -27,5 +29,9 @@ public class Car {
         if (moveStrategy.shouldMove()) {
             this.position++;
         }
+    }
+
+    public String getPosition() {
+        return name + COLON + POSITION.repeat(position);
     }
 }
