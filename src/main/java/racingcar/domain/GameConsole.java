@@ -11,6 +11,7 @@ public class GameConsole {
     private static final String CAR_NAMES_PROMPT = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
     private static final String ROUND_PROMPT = "시도할 횟수는 몇 회인가요?";
     private static final String RESULT_MESSAGE = "실행 결과";
+    private static final String WINNER_MESSAGE = "최종 우승자 : ";
     private static final String DELIMITER = ",";
 
     private final MoveStrategy moveStrategy;
@@ -39,6 +40,7 @@ public class GameConsole {
         startRace(cars, rounds);
 
         List<String> winners = findWinners(cars);
+        print(WINNER_MESSAGE + String.join(",", winners));
     }
 
     private List<String> findWinners(List<Car> cars) {

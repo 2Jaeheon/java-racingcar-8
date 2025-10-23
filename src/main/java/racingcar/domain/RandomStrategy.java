@@ -10,6 +10,6 @@ public class RandomStrategy implements MoveStrategy {
     @Override
     public boolean shouldMove() {
         int random = Randoms.pickNumberInRange(0, MAX_RANDOM_NUMBER - 1);
-        return random > MOVE_THRESHOLD;
+        return random >= MOVE_THRESHOLD;
     }
 }
