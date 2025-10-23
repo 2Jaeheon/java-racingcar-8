@@ -1,6 +1,7 @@
 package racingcar.domain;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +37,23 @@ public class GameConsole {
 
         print(RESULT_MESSAGE);
         startRace(cars, rounds);
+
+        List<String> winners = findWinners(cars);
+    }
+
+    private List<String> findWinners(List<Car> cars) {
+        int maxPosition = 0;
+        for (Car car : cars) {
+            maxPosition = Math.max(maxPosition, car.getPosition());
+        }
+
+        List<String> winners = new ArrayList<>();
+        for (Car car : cars) {
+            if (car.getPosition() == maxPosition) {
+                winners.add(car.getName());
+            }
+        }
+        return winners;
     }
 
     private void startRace(List<Car> cars, int rounds) {
@@ -49,7 +67,7 @@ public class GameConsole {
 
     private void printRoundResult(List<Car> cars) {
         for (Car car : cars) {
-            System.out.println(car.getPosition());
+            System.out.println(car.getStatus());
         }
         System.out.println();
     }

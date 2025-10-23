@@ -31,7 +31,15 @@ public class Car {
         }
     }
 
-    public String getPosition() {
+    public String getStatus() {
         return name + COLON + POSITION.repeat(position);
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public String getName() {
+        return name;
     }
 }
