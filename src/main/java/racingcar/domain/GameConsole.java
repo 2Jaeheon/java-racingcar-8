@@ -11,6 +11,12 @@ public class GameConsole {
     private static final String ROUND_PROMPT = "시도할 횟수는 몇 회인가요?";
     private static final String DELIMITER = ",";
 
+    private final MoveStrategy moveStrategy;
+
+    public GameConsole(MoveStrategy moveStrategy) {
+        this.moveStrategy = moveStrategy;
+    }
+
     private String read() {
         return Console.readLine();
     }
@@ -27,6 +33,16 @@ public class GameConsole {
         int rounds = getRounds();
 
         List<Car> cars = parse(carNames);
+
+        startRace(cars, rounds);
+    }
+
+    private void startRace(List<Car> cars, int rounds) {
+        for (int i = 0; i < rounds; i++) {
+            for (Car car : cars) {
+                car.move(moveStrategy);
+            }
+        }
     }
 
     private List<Car> parse(String carNames) {
