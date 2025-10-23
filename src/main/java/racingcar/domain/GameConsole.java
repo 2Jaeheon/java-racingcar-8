@@ -18,5 +18,23 @@ public class GameConsole {
     public void play() {
         print(CAR_NAMES_PROMPT);
         String carNames = read();
+
+        print(ROUND_PROMPT);
+        int rounds = getRounds();
+    }
+
+    private int getRounds() {
+        try {
+            String roundsInput = read();
+            int rounds = Integer.parseInt(roundsInput);
+
+            if (rounds < 0) {
+                throw new IllegalArgumentException();
+            }
+
+            return rounds;
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
     }
 }
