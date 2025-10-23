@@ -13,8 +13,8 @@ public class GameConsole {
 
     private final MoveStrategy moveStrategy;
 
-    public GameConsole(MoveStrategy moveStrategy) {
-        this.moveStrategy = moveStrategy;
+    public GameConsole() {
+        this.moveStrategy = new RandomStrategy();
     }
 
     private String read() {
