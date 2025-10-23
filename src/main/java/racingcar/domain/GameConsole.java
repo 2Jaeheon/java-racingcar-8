@@ -1,11 +1,15 @@
 package racingcar.domain;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameConsole {
 
     private static final String CAR_NAMES_PROMPT = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
     private static final String ROUND_PROMPT = "시도할 횟수는 몇 회인가요?";
+    private static final String DELIMITER = ",";
 
     private String read() {
         return Console.readLine();
@@ -21,6 +25,24 @@ public class GameConsole {
 
         print(ROUND_PROMPT);
         int rounds = getRounds();
+
+        List<Car> cars = parse(carNames);
+    }
+
+    private List<Car> parse(String carNames) {
+        String[] parsedCarNames = carNames.split(DELIMITER);
+
+        if (parsedCarNames.length == 0) {
+            throw new IllegalArgumentException();
+        }
+
+        try {
+            return Arrays.stream(parsedCarNames)
+                    .map(Car::new)
+                    .toList();
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private int getRounds() {
