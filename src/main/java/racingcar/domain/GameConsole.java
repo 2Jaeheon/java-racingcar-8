@@ -10,6 +10,9 @@ public class GameConsole {
     private final OutputView outputView;
     private final racingcar.domain.inputConverter inputConverter;
 
+    private static final String COLON = " : ";
+    private static final String PROGRESS = "-";
+
     public GameConsole() {
         this.moveStrategy = new RandomStrategy();
         this.inputView = new InputView();
@@ -49,8 +52,10 @@ public class GameConsole {
     private void startRace(Race race, int rounds) {
         for (int i = 0; i < rounds; i++) {
             race.moveAll(moveStrategy);
-            List<String> carsStatus = race.getStatuses();
-            outputView.printRound(carsStatus);
+            List<String> raceStatus = race.getCars().stream()
+                    .map(car -> car.getName() + COLON + PROGRESS.repeat(car.getPosition()))
+                    .toList();
+            outputView.printRound(raceStatus);
         }
     }
 }

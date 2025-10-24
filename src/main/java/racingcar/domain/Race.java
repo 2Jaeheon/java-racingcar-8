@@ -13,7 +13,7 @@ public class Race {
         if (cars.isEmpty()) {
             throw new IllegalArgumentException(ERROR_MINIMUM_CAR);
         }
-        this.cars = cars;
+        this.cars = new ArrayList<>(cars);
     }
 
     public List<String> findWinners() {
@@ -22,13 +22,11 @@ public class Race {
             maxPosition = Math.max(maxPosition, car.getPosition());
         }
 
-        List<String> winners = new ArrayList<>();
-        for (Car car : cars) {
-            if (car.getPosition() == maxPosition) {
-                winners.add(car.getName());
-            }
-        }
-        return winners;
+        final int finalMaxPosition = maxPosition;
+        return cars.stream()
+                .filter(car -> car.getPosition() == finalMaxPosition)
+                .map(Car::getName)
+                .toList();
     }
 
     public void moveAll(MoveStrategy strategy) {
@@ -37,9 +35,7 @@ public class Race {
         }
     }
 
-    public List<String> getStatuses() {
-        return cars.stream()
-                .map(Car::getStatus)
-                .collect(Collectors.toList());
+    public List<Car> getCars() {
+        return List.copyOf(cars);
     }
 }

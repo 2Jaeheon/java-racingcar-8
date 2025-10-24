@@ -61,8 +61,8 @@ class RaceTest {
         race.moveAll(alwaysMoveStrategy);
 
         // then
-        List<String> expected = race.getStatuses();
-        assertThat(expected).containsExactly("pobi : -", "woni : -");
+        assertThat(pobi.getPosition()).isEqualTo(1);
+        assertThat(woni.getPosition()).isEqualTo(1);
     }
 
     @Test
@@ -75,8 +75,9 @@ class RaceTest {
         race.moveAll(neverMoveStrategy);
 
         // then
-        List<String> expected = race.getStatuses();
-        assertThat(expected).containsExactly("pobi : ", "woni : ", "jun : ");
+        assertThat(pobi.getPosition()).isEqualTo(0);
+        assertThat(woni.getPosition()).isEqualTo(0);
+        assertThat(jun.getPosition()).isEqualTo(0);
     }
 
     @Test
@@ -119,10 +120,17 @@ class RaceTest {
         Race race = new Race(List.of(pobi, woni, jun));
 
         // when
-        List<String> statuses = race.getStatuses();
+        List<Car> cars = race.getCars();
 
         // then
-        assertThat(statuses).containsExactly("pobi : --", "woni : -", "jun : ");
+        assertThat(cars.get(0).getName()).isEqualTo("pobi");
+        assertThat(cars.get(0).getPosition()).isEqualTo(2);
+
+        assertThat(cars.get(1).getName()).isEqualTo("woni");
+        assertThat(cars.get(1).getPosition()).isEqualTo(1);
+
+        assertThat(cars.get(2).getName()).isEqualTo("jun");
+        assertThat(cars.get(2).getPosition()).isEqualTo(0);
     }
 
 }

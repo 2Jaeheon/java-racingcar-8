@@ -2,8 +2,6 @@ package racingcar.domain;
 
 public class Car {
     private static final int MAX_NAME_LENGTH = 5;
-    private static final String POSITION = "-";
-    private static final String COLON = " : ";
 
     private static final String ERROR_INVALID_NAME = "자동차 이름은 1자 이상 5자 이하여야 합니다";
 
@@ -20,9 +18,8 @@ public class Car {
         if (name == null) {
             throw new IllegalArgumentException(ERROR_INVALID_NAME);
         }
-
-        name = name.trim();
-        if (name.length() > MAX_NAME_LENGTH) {
+        String normalizedName = name.trim();
+        if (normalizedName.length() > MAX_NAME_LENGTH || normalizedName.isEmpty()) {
             throw new IllegalArgumentException(ERROR_INVALID_NAME);
         }
     }
@@ -31,10 +28,6 @@ public class Car {
         if (moveStrategy.shouldMove()) {
             this.position++;
         }
-    }
-
-    public String getStatus() {
-        return name + COLON + POSITION.repeat(position);
     }
 
     public int getPosition() {
