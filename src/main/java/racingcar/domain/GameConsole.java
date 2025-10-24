@@ -1,10 +1,7 @@
 package racingcar.domain;
 
-import camp.nextstep.edu.missionutils.Console;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
@@ -23,41 +20,21 @@ public class GameConsole {
 
     public void play() {
         String carNames = inputView.readCarNames();
-        List<Car> cars = parse(carNames);
+        List<Car> carList = parse(carNames);
+        Race race = new Race(carList);
 
         int rounds = getRounds();
 
         outputView.printRaceStart();
-        startRace(cars, rounds);
-
-        List<String> winners = findWinners(cars);
+        startRace(race, rounds);
+        List<String> winners = race.findWinners();
         outputView.printWinner(winners);
     }
 
-    private List<String> findWinners(List<Car> cars) {
-        int maxPosition = 0;
-        for (Car car : cars) {
-            maxPosition = Math.max(maxPosition, car.getPosition());
-        }
-
-        List<String> winners = new ArrayList<>();
-        for (Car car : cars) {
-            if (car.getPosition() == maxPosition) {
-                winners.add(car.getName());
-            }
-        }
-        return winners;
-    }
-
-    private void startRace(List<Car> cars, int rounds) {
+    private void startRace(Race race, int rounds) {
         for (int i = 0; i < rounds; i++) {
-            for (Car car : cars) {
-                car.move(moveStrategy);
-            }
-
-            List<String> carsStatus = cars.stream()
-                    .map(Car::getStatus)
-                    .toList();
+            race.moveAll(moveStrategy);
+            List<String> carsStatus = race.getStatuses();
             outputView.printRound(carsStatus);
         }
     }
