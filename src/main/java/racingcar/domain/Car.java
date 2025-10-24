@@ -5,6 +5,8 @@ public class Car {
     private static final String POSITION = "-";
     private static final String COLON = " : ";
 
+    private static final String ERROR_INVALID_NAME = "자동차 이름은 1자 이상 5자 이하여야 합니다";
+
     private final String name;
     private int position;
 
@@ -16,12 +18,12 @@ public class Car {
 
     private void validateName(String name) {
         if (name == null) {
-            throw new IllegalArgumentException("Name cannot be null");
+            throw new IllegalArgumentException(ERROR_INVALID_NAME);
         }
 
         name = name.trim();
         if (name.length() > MAX_NAME_LENGTH) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERROR_INVALID_NAME);
         }
     }
 

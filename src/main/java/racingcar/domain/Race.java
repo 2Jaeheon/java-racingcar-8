@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 public class Race {
     private final List<Car> cars;
 
+    private static final String ERROR_MINIMUM_CAR = "경주할 자동차가 1대 이상 필요합니다";
+
     public Race(List<Car> cars) {
         if (cars.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERROR_MINIMUM_CAR);
         }
         this.cars = cars;
     }

@@ -1,34 +1,49 @@
 package racingcar.domain;
 
-import java.util.Arrays;
 import java.util.List;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
 public class GameConsole {
-    private static final String DELIMITER = ",";
-
     private final MoveStrategy moveStrategy;
     private final InputView inputView;
     private final OutputView outputView;
+    private final racingcar.domain.inputConverter inputConverter;
 
     public GameConsole() {
         this.moveStrategy = new RandomStrategy();
         this.inputView = new InputView();
         this.outputView = new OutputView();
+        this.inputConverter = new inputConverter();
     }
 
     public void play() {
+        try {
+            // 준비
+            Race race = setUpRace();
+            int rounds = setUpRounds();
+
+            // 실행
+            outputView.printRaceStart();
+            startRace(race, rounds);
+
+            // 결과
+            List<String> winners = race.findWinners();
+            outputView.printWinner(winners);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    private Race setUpRace() {
         String carNames = inputView.readCarNames();
-        List<Car> carList = parse(carNames);
-        Race race = new Race(carList);
+        List<Car> carList = inputConverter.convertToCars(carNames);
+        return new Race(carList);
+    }
 
-        int rounds = getRounds();
-
-        outputView.printRaceStart();
-        startRace(race, rounds);
-        List<String> winners = race.findWinners();
-        outputView.printWinner(winners);
+    private int setUpRounds() {
+        String roundInput = inputView.readRound();
+        return inputConverter.convertToRounds(roundInput);
     }
 
     private void startRace(Race race, int rounds) {
@@ -36,37 +51,6 @@ public class GameConsole {
             race.moveAll(moveStrategy);
             List<String> carsStatus = race.getStatuses();
             outputView.printRound(carsStatus);
-        }
-    }
-
-    private List<Car> parse(String carNames) {
-        String[] parsedCarNames = carNames.split(DELIMITER);
-
-        if (parsedCarNames.length == 0) {
-            throw new IllegalArgumentException();
-        }
-
-        try {
-            return Arrays.stream(parsedCarNames)
-                    .map(Car::new)
-                    .toList();
-        } catch (Exception e) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private int getRounds() {
-        try {
-            String roundsInput = inputView.readRound();
-            int rounds = Integer.parseInt(roundsInput);
-
-            if (rounds < 0) {
-                throw new IllegalArgumentException();
-            }
-
-            return rounds;
-        } catch (Exception e) {
-            throw new IllegalArgumentException();
         }
     }
 }
