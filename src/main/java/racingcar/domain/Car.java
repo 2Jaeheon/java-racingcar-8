@@ -14,7 +14,7 @@ public class Car {
         }
         String trimmedName = name.trim();
         validateName(trimmedName);
-        this.name = name;
+        this.name = trimmedName;
         this.position = 0;
     }
 
