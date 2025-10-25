@@ -3,7 +3,7 @@ package racingcar.domain;
 import java.util.Arrays;
 import java.util.List;
 
-public class inputConverter {
+public class InputConverter {
     private static final String DELIMITER = ",";
 
     private static final String ERROR_NO_CAR_NAMES = "자동차 이름이 입력되지 않았습니다";

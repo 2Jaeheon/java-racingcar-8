@@ -8,16 +8,17 @@ public class GameConsole {
     private final MoveStrategy moveStrategy;
     private final InputView inputView;
     private final OutputView outputView;
-    private final racingcar.domain.inputConverter inputConverter;
+    private final InputConverter inputConverter;
 
     private static final String COLON = " : ";
     private static final String PROGRESS = "-";
 
-    public GameConsole() {
-        this.moveStrategy = new RandomStrategy();
-        this.inputView = new InputView();
-        this.outputView = new OutputView();
-        this.inputConverter = new inputConverter();
+    public GameConsole(MoveStrategy moveStrategy, InputView inputView, OutputView outputView,
+                       InputConverter inputConverter) {
+        this.moveStrategy = moveStrategy;
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.inputConverter = inputConverter;
     }
 
     public void play() {

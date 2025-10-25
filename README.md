@@ -127,6 +127,12 @@ GameConsole 클래스에서는 List<Car>를 통해서 어떻게 우승자를 찾
 이를 통해서 외부에서 내부 컬렉션을 변경하지 못하도록 보호할 수 있었습니다. 하지만, getCars() 메서드에서 cars를 반환하면 인스턴스를 반환하기 때문에
 외부에서 내부 컬렉션을 변경할 수 있습니다. 따라서 getCars() 메서드는 불변 리스트를 반환하도록 `List.copyOf(cars)`를 사용했습니다.
 
+### 리펙토링 6 - 의존성 주입
+
+GameConsole에서 InputView, OutputView, InputConverter, MoveStrategy를 직접 생성하지 않고
+생성자 주입을 통해서 외부에서 주입받도록 수정했습니다. 이를 통해서 결합도를 낮추고, 테스트하기 쉬운 구조로 변경했습니다.
+따라서 AppConfig 클래스에서 객체를 생성하고 주입하는 방식으로 구현했습니다.
+
 # 고민
 
 #### 1. Car에서 Getter가 존재하는데, Tell Don't Ask 원칙을 위반하는 것은 아닌가?
