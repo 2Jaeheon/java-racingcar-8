@@ -24,8 +24,8 @@ public class Car {
         }
     }
 
-    public void move(MoveStrategy moveStrategy) {
-        if (moveStrategy.shouldMove()) {
+    public void move(MoveCondition moveCondition) {
+        if (moveCondition.shouldMove()) {
             this.position++;
         }
     }

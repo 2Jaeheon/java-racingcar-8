@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import racingcar.domain.Car;
 
-public class InputConverter {
+public class InputParser {
     private static final String DELIMITER = ",";
 
     private static final String ERROR_NO_CAR_NAMES = "자동차 이름이 입력되지 않았습니다";
@@ -12,7 +12,7 @@ public class InputConverter {
     private static final String ERROR_INVALID_ROUND = "시도 횟수는 1 이상이어야 합니다";
 
 
-    public List<Car> convertToCars(String carNames) {
+    public List<Car> parseCarNames(String carNames) {
         if (carNames.isBlank()) {
             throw new IllegalArgumentException(ERROR_NO_CAR_NAMES);
         }
@@ -24,7 +24,7 @@ public class InputConverter {
                 .toList();
     }
 
-    public int convertToRounds(String roundInput) {
+    public int parseRounds(String roundInput) {
         int rounds;
         try {
             rounds = Integer.parseInt(roundInput);

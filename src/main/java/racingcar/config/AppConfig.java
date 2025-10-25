@@ -1,15 +1,15 @@
 package racingcar.config;
 
-import racingcar.domain.GameConsole;
-import racingcar.util.InputConverter;
-import racingcar.domain.MoveStrategy;
-import racingcar.domain.RandomStrategy;
+import racingcar.controller.RaceController;
+import racingcar.util.InputParser;
+import racingcar.domain.MoveCondition;
+import racingcar.domain.RandomCondition;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
 public class AppConfig {
-    public MoveStrategy moveStrategy() {
-        return new RandomStrategy();
+    public MoveCondition moveCondition() {
+        return new RandomCondition();
     }
 
     public InputView inputView() {
@@ -20,16 +20,16 @@ public class AppConfig {
         return new OutputView();
     }
 
-    public InputConverter inputConverter() {
-        return new InputConverter();
+    public InputParser inputParser() {
+        return new InputParser();
     }
 
-    public GameConsole gameConsole() {
-        return new GameConsole(
-                moveStrategy(),
+    public RaceController game() {
+        return new RaceController(
+                moveCondition(),
                 inputView(),
                 outputView(),
-                inputConverter()
+                inputParser()
         );
     }
 }

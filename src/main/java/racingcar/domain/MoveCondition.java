@@ -1,5 +1,5 @@
 package racingcar.domain;
 
-public interface MoveStrategy {
+public interface MoveCondition {
     boolean shouldMove();
 }

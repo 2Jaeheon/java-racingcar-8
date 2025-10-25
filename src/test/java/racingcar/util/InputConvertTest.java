@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import racingcar.domain.Car;
 
 class InputConvertTest {
-    InputConverter inputConverter;
+    InputParser inputParser;
 
     @BeforeEach
     void SetUp() {
-        inputConverter = new InputConverter();
+        inputParser = new InputParser();
     }
 
     @Test
@@ -25,8 +25,8 @@ class InputConvertTest {
         String carNames = "";
 
         // when & then
-        assertThrows(IllegalArgumentException.class, () -> inputConverter.convertToCars(carNames));
-        assertThatThrownBy(() -> inputConverter.convertToCars(carNames))
+        assertThrows(IllegalArgumentException.class, () -> inputParser.parseCarNames(carNames));
+        assertThatThrownBy(() -> inputParser.parseCarNames(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 이름이 입력되지 않았습니다");
     }
@@ -38,8 +38,8 @@ class InputConvertTest {
         String carNames = "";
 
         // when & then
-        assertThrows(IllegalArgumentException.class, () -> inputConverter.convertToCars(carNames));
-        assertThatThrownBy(() -> inputConverter.convertToCars(carNames))
+        assertThrows(IllegalArgumentException.class, () -> inputParser.parseCarNames(carNames));
+        assertThatThrownBy(() -> inputParser.parseCarNames(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 이름이 입력되지 않았습니다");
     }
@@ -51,7 +51,7 @@ class InputConvertTest {
         String carNames = "pobi,woni";
 
         // when
-        List<Car> cars = inputConverter.convertToCars(carNames);
+        List<Car> cars = inputParser.parseCarNames(carNames);
 
         // then
         assertThat(cars).hasSize(2);
@@ -67,7 +67,7 @@ class InputConvertTest {
         String rounds = "^";
 
         // when & then
-        assertThatThrownBy(() -> inputConverter.convertToRounds(rounds))
+        assertThatThrownBy(() -> inputParser.parseRounds(rounds))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("시도 횟수는 숫자여야 합니다");
     }
@@ -79,7 +79,7 @@ class InputConvertTest {
         String rounds = "0";
 
         // when & then
-        assertThatThrownBy(() -> inputConverter.convertToRounds(rounds))
+        assertThatThrownBy(() -> inputParser.parseRounds(rounds))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("시도 횟수는 1 이상이어야 합니다");
     }
@@ -91,7 +91,7 @@ class InputConvertTest {
         String rounds = "5";
 
         // when
-        int round = inputConverter.convertToRounds(rounds);
+        int round = inputParser.parseRounds(rounds);
 
         // then
         assertThat(round).isEqualTo(5);

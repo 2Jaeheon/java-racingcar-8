@@ -1,30 +1,33 @@
-package racingcar.domain;
+package racingcar.controller;
 
 import java.util.List;
+import racingcar.domain.Car;
+import racingcar.domain.MoveCondition;
+import racingcar.domain.Race;
 import racingcar.dto.CarStatus;
-import racingcar.util.InputConverter;
+import racingcar.util.InputParser;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
-public class GameConsole {
-    private final MoveStrategy moveStrategy;
+public class RaceController {
+    private final MoveCondition moveCondition;
     private final InputView inputView;
     private final OutputView outputView;
-    private final InputConverter inputConverter;
+    private final InputParser inputParser;
 
-    public GameConsole(MoveStrategy moveStrategy, InputView inputView, OutputView outputView,
-                       InputConverter inputConverter) {
-        this.moveStrategy = moveStrategy;
+    public RaceController(MoveCondition moveCondition, InputView inputView, OutputView outputView,
+                          InputParser inputParser) {
+        this.moveCondition = moveCondition;
         this.inputView = inputView;
         this.outputView = outputView;
-        this.inputConverter = inputConverter;
+        this.inputParser = inputParser;
     }
 
     public void play() {
         try {
             // 준비
-            Race race = setUpRace();
-            int rounds = setUpRounds();
+            Race race = prepareRace();
+            int rounds = prepareRounds();
 
             // 실행
             startRace(race, rounds);
@@ -36,21 +39,21 @@ public class GameConsole {
         }
     }
 
-    private Race setUpRace() {
+    private Race prepareRace() {
         String carNames = inputView.readCarNames();
-        List<Car> carList = inputConverter.convertToCars(carNames);
+        List<Car> carList = inputParser.parseCarNames(carNames);
         return new Race(carList);
     }
 
-    private int setUpRounds() {
+    private int prepareRounds() {
         String roundInput = inputView.readRound();
-        return inputConverter.convertToRounds(roundInput);
+        return inputParser.parseRounds(roundInput);
     }
 
     private void startRace(Race race, int rounds) {
         outputView.printRaceStart();
         for (int i = 0; i < rounds; i++) {
-            race.moveAll(moveStrategy);
+            race.moveAll(moveCondition);
             List<CarStatus> raceStatus = race.getRaceStatus();
             outputView.printEachRound(raceStatus);
         }

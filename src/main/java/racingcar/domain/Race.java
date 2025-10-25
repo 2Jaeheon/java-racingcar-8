@@ -2,7 +2,6 @@ package racingcar.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import racingcar.dto.CarStatus;
 
 public class Race {
@@ -30,9 +29,9 @@ public class Race {
                 .toList();
     }
 
-    public void moveAll(MoveStrategy strategy) {
+    public void moveAll(MoveCondition moveCondition) {
         for (Car car : cars) {
-            car.move(strategy);
+            car.move(moveCondition);
         }
     }
 
