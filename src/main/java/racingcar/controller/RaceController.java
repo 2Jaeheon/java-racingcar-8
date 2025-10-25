@@ -53,9 +53,9 @@ public class RaceController {
     private void startRace(Race race, int rounds) {
         outputView.printRaceStart();
         for (int i = 0; i < rounds; i++) {
-            race.moveAll(moveCondition);
-            List<CarStatus> raceStatus = race.getRaceStatus();
-            outputView.printEachRound(raceStatus);
+            race.moveCars(moveCondition);
+            List<CarStatus> raceStatus = race.getCurrentStatus();
+            outputView.printRaceRound(raceStatus);
         }
     }
 }

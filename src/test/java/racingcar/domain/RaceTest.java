@@ -53,12 +53,12 @@ class RaceTest {
 
     @Test
     @DisplayName("moveAll() 실행 시 모든 자동차가 항상 움직이는 전략에 따라 움직인다")
-    void moveAll_alwaysMovesAllCar() {
+    void moveAll_alwaysMovesCarsCar() {
         // given
         Race race = new Race(List.of(pobi, woni));
 
         // when
-        race.moveAll(alwaysMoveCondition);
+        race.moveCars(alwaysMoveCondition);
 
         // then
         assertThat(pobi.getPosition()).isEqualTo(1);
@@ -67,12 +67,12 @@ class RaceTest {
 
     @Test
     @DisplayName("moveAll() 실행 시 모든 자동차가 움직이지 않는 전략에 따라 움직이지 않는다")
-    void moveAll_neverMovesAllCar() {
+    void moveAll_neverMovesCarsCar() {
         // given
         Race race = new Race(List.of(pobi, woni, jun));
 
         // when
-        race.moveAll(neverMoveCondition);
+        race.moveCars(neverMoveCondition);
 
         // then
         assertThat(pobi.getPosition()).isEqualTo(0);
@@ -120,7 +120,7 @@ class RaceTest {
         Race race = new Race(List.of(pobi, woni, jun));
 
         // when
-        List<CarStatus> cars = race.getRaceStatus();
+        List<CarStatus> cars = race.getCurrentStatus();
 
         // then
         assertThat(cars.get(0).getName()).isEqualTo("pobi");

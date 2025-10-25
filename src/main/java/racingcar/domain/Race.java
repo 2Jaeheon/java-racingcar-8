@@ -29,13 +29,13 @@ public class Race {
                 .toList();
     }
 
-    public void moveAll(MoveCondition moveCondition) {
+    public void moveCars(MoveCondition moveCondition) {
         for (Car car : cars) {
             car.move(moveCondition);
         }
     }
 
-    public List<CarStatus> getRaceStatus() {
+    public List<CarStatus> getCurrentStatus() {
         return cars.stream()
                 .map(car -> new CarStatus(car.getName(), car.getPosition()))
                 .toList();

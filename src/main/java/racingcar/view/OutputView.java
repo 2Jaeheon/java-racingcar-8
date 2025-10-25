@@ -14,7 +14,7 @@ public class OutputView {
         System.out.println(RESULT_MESSAGE);
     }
 
-    public void printEachRound(List<CarStatus> carStatuses) {
+    public void printRaceRound(List<CarStatus> carStatuses) {
         for (CarStatus car : carStatuses) {
             String name = car.getName();
             int position = car.getPosition();
