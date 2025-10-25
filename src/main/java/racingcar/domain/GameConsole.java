@@ -1,6 +1,8 @@
 package racingcar.domain;
 
 import java.util.List;
+import racingcar.dto.CarStatus;
+import racingcar.util.InputConverter;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
@@ -9,9 +11,6 @@ public class GameConsole {
     private final InputView inputView;
     private final OutputView outputView;
     private final InputConverter inputConverter;
-
-    private static final String COLON = " : ";
-    private static final String PROGRESS = "-";
 
     public GameConsole(MoveStrategy moveStrategy, InputView inputView, OutputView outputView,
                        InputConverter inputConverter) {
@@ -28,12 +27,10 @@ public class GameConsole {
             int rounds = setUpRounds();
 
             // 실행
-            outputView.printRaceStart();
             startRace(race, rounds);
 
             // 결과
-            List<String> winners = race.findWinners();
-            outputView.printWinner(winners);
+            outputView.printWinner(race.findWinners());
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -51,12 +48,11 @@ public class GameConsole {
     }
 
     private void startRace(Race race, int rounds) {
+        outputView.printRaceStart();
         for (int i = 0; i < rounds; i++) {
             race.moveAll(moveStrategy);
-            List<String> raceStatus = race.getCars().stream()
-                    .map(car -> car.getName() + COLON + PROGRESS.repeat(car.getPosition()))
-                    .toList();
-            outputView.printRound(raceStatus);
+            List<CarStatus> raceStatus = race.getRaceStatus();
+            outputView.printEachRound(raceStatus);
         }
     }
 }

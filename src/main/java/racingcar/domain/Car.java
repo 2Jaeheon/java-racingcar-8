@@ -9,17 +9,17 @@ public class Car {
     private int position;
 
     public Car(String name) {
-        validateName(name);
+        if (name == null) {
+            throw new IllegalArgumentException(ERROR_INVALID_NAME);
+        }
+        String trimmedName = name.trim();
+        validateName(trimmedName);
         this.name = name;
         this.position = 0;
     }
 
     private void validateName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException(ERROR_INVALID_NAME);
-        }
-        String normalizedName = name.trim();
-        if (normalizedName.length() > MAX_NAME_LENGTH || normalizedName.isEmpty()) {
+        if (name.length() > MAX_NAME_LENGTH || name.isBlank()) {
             throw new IllegalArgumentException(ERROR_INVALID_NAME);
         }
     }

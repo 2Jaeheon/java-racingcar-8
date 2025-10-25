@@ -1,7 +1,7 @@
 package racingcar.config;
 
 import racingcar.domain.GameConsole;
-import racingcar.domain.InputConverter;
+import racingcar.util.InputConverter;
 import racingcar.domain.MoveStrategy;
 import racingcar.domain.RandomStrategy;
 import racingcar.view.InputView;

@@ -1,7 +1,8 @@
-package racingcar.domain;
+package racingcar.util;
 
 import java.util.Arrays;
 import java.util.List;
+import racingcar.domain.Car;
 
 public class InputConverter {
     private static final String DELIMITER = ",";

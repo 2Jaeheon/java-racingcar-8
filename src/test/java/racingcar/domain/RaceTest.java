@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import racingcar.dto.CarStatus;
 
 class RaceTest {
 
@@ -120,7 +121,7 @@ class RaceTest {
         Race race = new Race(List.of(pobi, woni, jun));
 
         // when
-        List<Car> cars = race.getCars();
+        List<CarStatus> cars = race.getRaceStatus();
 
         // then
         assertThat(cars.get(0).getName()).isEqualTo("pobi");
