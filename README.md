@@ -140,6 +140,14 @@ GameConsole에서 InputView, OutputView, InputConverter, MoveStrategy를 직접 
 따라서 CarStatusDTO를 도입하여 Car의 이름과 위치 정보를 담아서 OutputView에서 출력 포맷팅을 담당하도록 수정했습니다.
 DTO를 만들지 않는다면 OutputView가 도메인 모델과 강하게 결합되기 때문에 유지보수성 측면에서 좋지 않다고 생각했습니다.
 
+### 리펙토링 8 - DTO 제거
+
+CarStatusDTO를 도입했지만, DTO를 도입함으로써 오히려 결합도가 더욱 높아졌다고 생각했습니다.
+따라서 CarStatus DTO간의 결합이 과도한 설계가 되었다고 생각했습니다. 따라서 View가 Car에 의존하지만,
+getter만 사용해서 단순화 하는것이 더 이점이 있다고 생각해서 DTO를 제거했습니다.
+원래 해결책으로는 Controller에서 DTO를 조립하는 방법이 있지만, 이를 위해선 Race 객체에서 record를 반환하고, Controller에서 DTO로 변환하는 과정이 필요합니다.
+하지만 저는 이 과정이 오히려 복잡성을 증가시킨다고 생각했습니다. 따라서 DTO를 제거하는 방향으로 결정했습니다.
+
 # 고민
 
 #### 1. Car에서 Getter가 존재하는데, Tell Don't Ask 원칙을 위반하는 것은 아닌가?

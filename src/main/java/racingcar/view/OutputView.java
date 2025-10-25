@@ -1,7 +1,7 @@
 package racingcar.view;
 
 import java.util.List;
-import racingcar.dto.CarStatus;
+import racingcar.domain.Car;
 
 public class OutputView {
     private static final String RESULT_MESSAGE = "\n실행 결과";
@@ -14,8 +14,8 @@ public class OutputView {
         System.out.println(RESULT_MESSAGE);
     }
 
-    public void printRaceRound(List<CarStatus> carStatuses) {
-        for (CarStatus car : carStatuses) {
+    public void printRaceRound(List<Car> carStatuses) {
+        for (Car car : carStatuses) {
             String name = car.getName();
             int position = car.getPosition();
             System.out.println(name + COLON + PROGRESS.repeat(position));

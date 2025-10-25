@@ -2,7 +2,6 @@ package racingcar.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import racingcar.dto.CarStatus;
 
 public class Race {
     private final List<Car> cars;
@@ -35,9 +34,7 @@ public class Race {
         }
     }
 
-    public List<CarStatus> getCurrentStatus() {
-        return cars.stream()
-                .map(car -> new CarStatus(car.getName(), car.getPosition()))
-                .toList();
+    public List<Car> getCars() {
+        return List.copyOf(cars);
     }
 }

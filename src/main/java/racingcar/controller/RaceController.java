@@ -4,7 +4,6 @@ import java.util.List;
 import racingcar.domain.Car;
 import racingcar.domain.MoveCondition;
 import racingcar.domain.Race;
-import racingcar.dto.CarStatus;
 import racingcar.util.InputParser;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
@@ -54,8 +53,7 @@ public class RaceController {
         outputView.printRaceStart();
         for (int i = 0; i < rounds; i++) {
             race.moveCars(moveCondition);
-            List<CarStatus> raceStatus = race.getCurrentStatus();
-            outputView.printRaceRound(raceStatus);
+            outputView.printRaceRound(race.getCars());
         }
     }
 }
