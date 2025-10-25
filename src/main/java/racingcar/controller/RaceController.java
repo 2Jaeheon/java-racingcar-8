@@ -26,10 +26,9 @@ public class RaceController {
         try {
             // 준비
             Race race = prepareRace();
-            int rounds = prepareRounds();
 
             // 실행
-            startRace(race, rounds);
+            start(race);
 
             // 결과
             outputView.printWinner(race.findWinners());
@@ -40,19 +39,17 @@ public class RaceController {
 
     private Race prepareRace() {
         String carNames = inputView.readCarNames();
-        List<Car> carList = inputParser.parseCarNames(carNames);
-        return new Race(carList);
-    }
-
-    private int prepareRounds() {
         String roundInput = inputView.readRound();
-        return inputParser.parseRounds(roundInput);
+        int rounds = inputParser.parseRounds(roundInput);
+
+        List<Car> carList = inputParser.parseCarNames(carNames);
+        return new Race(carList, this.moveCondition, rounds);
     }
 
-    private void startRace(Race race, int rounds) {
+    private void start(Race race) {
         outputView.printRaceStart();
-        for (int i = 0; i < rounds; i++) {
-            race.moveCars(moveCondition);
+        while (!race.isFinished()) {
+            race.playRound();
             outputView.printRaceRound(race.getCars());
         }
     }
