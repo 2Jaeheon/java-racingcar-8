@@ -2,21 +2,21 @@ package racingcar.controller;
 
 import java.util.List;
 import racingcar.domain.Car;
-import racingcar.domain.MoveCondition;
+import racingcar.domain.MoveStrategy;
 import racingcar.domain.Race;
 import racingcar.util.InputParser;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
 public class RaceController {
-    private final MoveCondition moveCondition;
+    private final MoveStrategy moveStrategy;
     private final InputView inputView;
     private final OutputView outputView;
     private final InputParser inputParser;
 
-    public RaceController(MoveCondition moveCondition, InputView inputView, OutputView outputView,
+    public RaceController(MoveStrategy moveStrategy, InputView inputView, OutputView outputView,
                           InputParser inputParser) {
-        this.moveCondition = moveCondition;
+        this.moveStrategy = moveStrategy;
         this.inputView = inputView;
         this.outputView = outputView;
         this.inputParser = inputParser;
@@ -43,7 +43,7 @@ public class RaceController {
         int rounds = inputParser.parseRounds(roundInput);
 
         List<Car> carList = inputParser.parseCarNames(carNames);
-        return new Race(carList, this.moveCondition, rounds);
+        return new Race(carList, this.moveStrategy, rounds);
     }
 
     private void start(Race race) {

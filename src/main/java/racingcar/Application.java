@@ -6,7 +6,7 @@ import racingcar.controller.RaceController;
 public class Application {
     public static void main(String[] args) {
         AppConfig appConfig = new AppConfig();
-        RaceController game = appConfig.game();
+        RaceController game = appConfig.raceController();
         game.play();
     }
 }

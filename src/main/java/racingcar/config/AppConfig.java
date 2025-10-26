@@ -2,14 +2,14 @@ package racingcar.config;
 
 import racingcar.controller.RaceController;
 import racingcar.util.InputParser;
-import racingcar.domain.MoveCondition;
-import racingcar.domain.RandomCondition;
+import racingcar.domain.MoveStrategy;
+import racingcar.domain.RandomStrategy;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
 public class AppConfig {
-    public MoveCondition moveCondition() {
-        return new RandomCondition();
+    public MoveStrategy moveStrategy() {
+        return new RandomStrategy();
     }
 
     public InputView inputView() {
@@ -24,9 +24,9 @@ public class AppConfig {
         return new InputParser();
     }
 
-    public RaceController game() {
+    public RaceController raceController() {
         return new RaceController(
-                moveCondition(),
+                moveStrategy(),
                 inputView(),
                 outputView(),
                 inputParser()

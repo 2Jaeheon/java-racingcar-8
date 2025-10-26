@@ -148,6 +148,12 @@ getter만 사용해서 단순화 하는것이 더 이점이 있다고 생각해�
 원래 해결책으로는 Controller에서 DTO를 조립하는 방법이 있지만, 이를 위해선 Race 객체에서 record를 반환하고, Controller에서 DTO로 변환하는 과정이 필요합니다.
 하지만 저는 이 과정이 오히려 복잡성을 증가시킨다고 생각했습니다. 따라서 DTO를 제거하는 방향으로 결정했습니다.
 
+### 리펙토링 9 - 랜덤 숫자를 통한 이동의 결정을 MoveStrategy로 위임
+
+기존의 Race 객체에서는 randomStrategy를 통해 랜덤 숫자를 생성하고 이동이 가능한지를 판단받은 뒤, car.move()를 호출했습니다.
+하지만, 이렇게 되면 Race 객체가 RanddomStrategy에게 묻고(ask) Car에게 명령하는(tell) 형태가 되어 Tell Don't Ask 원칙을 위반한다고 생각했습니다.
+따라서 위 원칙을 지키기 위해 판단의 책임을 MoveStrategy로 위임했습니다. 이를 통해 OCP(개방 폐쇄 원칙)을 지킬 수 있었습니다.
+
 # 고민
 
 #### 1. Car에서 Getter가 존재하는데, Tell Don't Ask 원칙을 위반하는 것은 아닌가?
