@@ -143,4 +143,16 @@ class CarTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("자동차 이름은 1자 이상 5자 이하여야 합니다");
     }
+
+    @Test
+    @DisplayName("자동차 이름에 null이 입력되면 예외가 발생한다")
+    void createCar_throwsException_whenNameIsNull() {
+        // given
+        String nullName = null;
+
+        // when & then
+        assertThatThrownBy(() -> new Car(nullName))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("자동차 이름은 1자 이상 5자 이하여야 합니다");
+    }
 }
