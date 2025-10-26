@@ -46,7 +46,6 @@ public class InputParser {
             throw new IllegalArgumentException(ERROR_NOT_NUMBER);
         }
 
-        // 시도 횟수가 1 이상임을 검증
         if (rounds <= 0) {
             throw new IllegalArgumentException(ERROR_INVALID_ROUND);
         }
