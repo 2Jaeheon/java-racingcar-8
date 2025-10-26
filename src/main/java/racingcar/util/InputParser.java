@@ -13,7 +13,7 @@ public class InputParser {
 
 
     public List<Car> parseCarNames(String carNames) {
-        if (carNames.isBlank()) {
+        if (carNames == null || carNames.isBlank()) {
             throw new IllegalArgumentException(ERROR_NO_CAR_NAMES);
         }
 
